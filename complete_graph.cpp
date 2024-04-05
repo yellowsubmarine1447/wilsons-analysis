@@ -13,4 +13,6 @@ vector<vector<int>> create_graph(int N) {
             }
         }
     }
+
+    return adj;
 }

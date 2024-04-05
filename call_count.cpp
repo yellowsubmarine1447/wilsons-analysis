@@ -1,7 +1,7 @@
 #include <iostream>
 #include "random_tree.h"
-#include <sys/time.h>
 #include "graph.h"
+#include <sys/time.h>
 
 using namespace std;
 
