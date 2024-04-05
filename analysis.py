@@ -21,7 +21,7 @@ if len(argv) < 2:
     print("please provide .cpp file that generates random graph")
     exit(1)
 
-system(f"g++ random_tree_algo.cpp {argv[1]}")
+system(f"g++ call_count.cpp {argv[1]}")
 for i in range(LEFT, RIGHT, SAMPLING_DIST):
     s = 0
     for _ in range(20):
