@@ -9,20 +9,34 @@ using namespace std;
 
 int c = 0; // not really applicable here but whatever
 
+void dfs(int u, vector<int> &next, vector<vector<int>> &tree_adj, int parent=-1) {
+    for (int child : tree_adj[u]) {
+        if (child == parent) {
+            continue;
+        }
+
+        dfs(child, next, tree_adj, u);
+    }
+
+    next[u] = parent;
+}
 
 vector<int> random_tree_with_root(int N, int r, vector<vector<int>> &adj) {
     // we DSU join
-    
-    vector<int> edges;
+    vector<pair<int, int>> edges;
     vector<int> parent(N);
-    for (int i : adj) {
+    vector<vector<int>> tree_adj(N);
+    vector<int> next(N);
+
+    for (int i = 0; i < N; i++) {
         parent[i] = i;
+        next[i] = -1;
         for (int j : adj[i]) {
             edges.push_back({i, j});
         }
     }
 
-    random_shuffle(edges);
+    random_shuffle(edges.begin(), edges.end());
 
     for (pair<int, int> edge : edges) {
         int u = edge.first; int v = edge.second;
@@ -44,9 +58,12 @@ vector<int> random_tree_with_root(int N, int r, vector<vector<int>> &adj) {
 
         if (s != t) {
             parent[t] = s; // dsu join
-            next[v] = u; // edge join
+            tree_adj[v].push_back(u);
+            tree_adj[u].push_back(v);
         }
     }
+
+    dfs(r, next, tree_adj);
 
     return next;
 }
