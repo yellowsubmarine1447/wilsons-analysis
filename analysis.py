@@ -1,4 +1,4 @@
-# takes a few seconds
+# takes a few seconds (like 10)
 
 from scipy.optimize import curve_fit
 from random import randint
@@ -6,7 +6,7 @@ from subprocess import check_output
 from os import system
 import matplotlib.pyplot as plt
 LEFT = 100
-RIGHT = 200
+RIGHT = 500
 
 def cubic(x, a, b, c, d):
     y = a * x** 3 + b * x ** 2 + c * x + d
@@ -14,8 +14,8 @@ def cubic(x, a, b, c, d):
 
 ydata = []
 xdata = []
-system("g++ random_tree_algo.cpp worst_case_expected.c")
-for i in range(LEFT, RIGHT):
+system("g++ random_tree_algo.cpp worst_case_expected.cpp")
+for i in range(LEFT, RIGHT, 10):
     s = 0
     for _ in range(20):
         s += int(check_output(["./a.out", str(i)]))
