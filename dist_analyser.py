@@ -3,7 +3,7 @@ from os import system
 from sys import argv
 
 dist = {}
-TRIALS = 1000
+TRIALS = 100000
 
 if len(argv) < 2:
     print("please provide algorithm file which will be run against distribution analyser")
@@ -20,10 +20,12 @@ else:
     size = argv[3]
 
 system(f"g++ show_tree.cpp {argv[1]} {graph_type}")
-for z in range(TRIALS):
+for _ in range(TRIALS):
     result = check_output(["./a.out", size])
     if result not in dist:
         dist[result] = 0
     dist[result] += 1
 
-print(dist.values())
+distribution = dist.values()
+print(f"{len(distribution)} spanning trees, with minimum {min(distribution)} and maximum {max(distribution)}")
+print(distribution)
