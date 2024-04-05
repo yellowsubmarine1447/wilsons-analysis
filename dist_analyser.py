@@ -20,7 +20,7 @@ else:
     size = argv[3]
 
 system(f"g++ show_tree.cpp {argv[1]} {graph_type}")
-for _ in range(TRIALS):
+for z in range(TRIALS):
     result = check_output(["./a.out", size])
     if result not in dist:
         dist[result] = 0
