@@ -20,6 +20,42 @@ int count_leaves(int N, vector<int> next) {
     return leaf_count;
 }
 
+void DisplayMaze(int N, vector<int> next) {
+    int sqrt, m;
+    for (sqrt = 0; sqrt*sqrt <= N; sqrt++);
+    sqrt--;
+    for (m = sqrt; N % m != 0; m--);
+    int n = N / m; // nxm rectangle
+
+    // Go around the maze, printing out first walls, then maze
+    for (int i = 0; i < n; i++) {
+        // Print out the border above
+        for (int j = 0; j < m; j++) {
+            int curr = i * m + j;
+            int v = (i-1) * m + j;
+            char c = (i && (next[curr] == v || next[v] == curr)) ? ' ' : '#';
+            cout << "#" << c;
+        }
+        cout << "#\n";
+
+        // Print out the maze row
+        for (int j = 0; j < m; j++) {
+            int curr = i * m + j;
+            int v = i * m + j-1;
+            char c = (j && (next[curr] == v || next[v] == curr)) ? ' ' : '#';
+            char cell = (next[curr] == -1) ? 'R' : ' ';
+            cout << c << cell;
+        }
+        cout << "#\n";
+    }
+
+    // Print bottom border
+    for (int j = 0; j < 2*m + 1; j++) {
+        cout << "#";
+    }
+    cout << "\n";
+}
+
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         cout << "Not enough command line arguments.\n";
@@ -44,10 +80,12 @@ int main(int argc, char* argv[]) {
     vector<int> next = random_tree_with_root(N, r, graph_adj);
     //gettimeofday(&end, NULL);
 
-    cout << "Number of leaves: " << count_leaves(N, next) << '\n';
 
     //printf("Time taken: %.3f seconds\n", end.tv_sec - start.tv_sec + (end.tv_usec - start.tv_usec) / 1e6);
     //display_tree(N, next);
     //cout << "Wrote to " << FILE << "\n";
-    display_tree(N, next, true);
+
+    cout << count_leaves(N, next);
+    // cout << "Number of leaves: " << count_leaves(N, next) << '\n';
+    // DisplayMaze(N, next);
 }
