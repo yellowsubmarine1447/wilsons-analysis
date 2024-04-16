@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
     if (argc < 2) {
         cout << "Not enough command line arguments.\n";
         cout << "Usage: " << argv[0] << " <N>\n";
-        cout << "where N is the number of vertices in the graph (preferably a multiple of 4).\n";
+        cout << "where N is the number of vertices in the graph.\n";
         return 1;
     }
 
